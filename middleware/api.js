@@ -1,5 +1,11 @@
-import { Schema, arrayOf, normalize } from 'normalizr'
-import { camelizeKeys } from 'humps'
+import {
+  Schema,
+  arrayOf,
+  normalize
+} from 'normalizr'
+import {
+  camelizeKeys
+} from 'humps'
 
 // Extracts the next page URL from Github API response.
 const getNextPageUrl = response => {
@@ -16,14 +22,23 @@ const getNextPageUrl = response => {
   return nextLink.split(';')[0].slice(1, -1)
 }
 
-const API_ROOT = 'https://api.github.com/'
+// const API_ROOT = 'https://api.github.com/'
+const API_ROOT = 'https://c4w19235.americas.hpqcorp.net/'
 
 // Fetches an API response and normalizes the result JSON according to schema.
 // This makes every API response have the same shape, regardless of how nested it was.
 const callApi = (endpoint, schema) => {
   const fullUrl = (endpoint.indexOf(API_ROOT) === -1) ? API_ROOT + endpoint : endpoint
+  const custom_headers = new Headers({
+    'Authorization': 'Basic ' + btoa('i:0#.w|asiapacific\\zhouzh:K8gNpSnj3p')
+  })
+  const custom_request = new Request(fullUrl, {
+    method: 'GET',
+    contentType: 'application/json',
+    headers: custom_headers
+  })
 
-  return fetch(fullUrl)
+  return fetch(custom_request)
     .then(response =>
       response.json().then(json => {
         if (!response.ok) {
@@ -34,8 +49,9 @@ const callApi = (endpoint, schema) => {
         const nextPageUrl = getNextPageUrl(response)
 
         return Object.assign({},
-          normalize(camelizedJson, schema),
-          { nextPageUrl }
+          normalize(camelizedJson, schema), {
+            nextPageUrl
+          }
         )
       })
     )
@@ -62,6 +78,10 @@ const repoSchema = new Schema('repos', {
   idAttribute: repo => repo.fullName.toLowerCase()
 })
 
+const opptySchema = new Schema('oppties', {
+  idAttribute: oppty => oppty.opptyId.toUpperCase()
+})
+
 repoSchema.define({
   owner: userSchema
 })
@@ -71,7 +91,10 @@ export const Schemas = {
   USER: userSchema,
   USER_ARRAY: arrayOf(userSchema),
   REPO: repoSchema,
-  REPO_ARRAY: arrayOf(repoSchema)
+  REPO_ARRAY: arrayOf(repoSchema),
+  OPP: opptySchema,
+  OPP_ARRAY: arrayOf(opptySchema),
+  All_OPPTIES_ARRAY: arrayOf(opptySchema)
 }
 
 // Action key that carries API call info interpreted by this Redux middleware.
@@ -85,8 +108,13 @@ export default store => next => action => {
     return next(action)
   }
 
-  let { endpoint } = callAPI
-  const { schema, types } = callAPI
+  let {
+    endpoint
+  } = callAPI
+  const {
+    schema,
+    types
+  } = callAPI
 
   if (typeof endpoint === 'function') {
     endpoint = endpoint(store.getState())
@@ -111,8 +139,10 @@ export default store => next => action => {
     return finalAction
   }
 
-  const [ requestType, successType, failureType ] = types
-  next(actionWith({ type: requestType }))
+  const [requestType, successType, failureType] = types
+  next(actionWith({
+    type: requestType
+  }))
 
   return callApi(endpoint, schema).then(
     response => next(actionWith({

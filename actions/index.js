@@ -36,17 +36,18 @@ export const DOC_REQUEST = 'DOC_REQUEST'
 export const DOC_SUCCESS = 'DOC_SUCCESS'
 export const DOC_FAILURE = 'DOC_FAILURE'
 
-const fetchDocument = (opptyId) => ({
+const fetchDocument = (opptyId, sectionName) => ({
   opptyId,
+  sectionName,
   [CALL_API]: {
     types: [ DOC_REQUEST, DOC_SUCCESS, DOC_FAILURE ],
-    endpoint: `api/documents/${opptyId}`,
+    endpoint: sectionName ? `api/documents/${opptyId}/sections/${sectionName}` : `api/documents/${opptyId}`,
     schema: Schemas.DOC
   }
 })
 
-export const loadDocument = (opptyId) => (dispatch, getState) => {
-  return dispatch(fetchDocument(opptyId))
+export const loadDocument = (opptyId, sectionName) => (dispatch, getState) => {
+  return dispatch(fetchDocument(opptyId, sectionName))
 }
 
 export const RESET_ERROR_MESSAGE = 'RESET_ERROR_MESSAGE'

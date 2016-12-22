@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { loadDocument, jumpTo } from '../actions'
+import { loadDocument } from '../actions'
 import SectionNav from '../components/SectionNav'
 import S0201 from '../sections/S0201'
 import S0202 from '../sections/S0202'
@@ -11,7 +11,7 @@ import S0206 from '../sections/S0206'
 import S0207 from '../sections/S0207'
 
 const loadData = props => {
-    props.loadDocument(props.opptyId)
+    props.loadDocument(props.opptyId, props.sectionName)
 }
 
 class CSSectionLoader extends Component {
@@ -20,7 +20,7 @@ class CSSectionLoader extends Component {
         opptyId: PropTypes.string,
         opptyName: PropTypes.string,
         sid: PropTypes.string.isRequired,
-        jumpTo: PropTypes.func.isRequired,
+        sectionName: PropTypes.string,
         loadDocument: PropTypes.func.isRequired
     }
 
@@ -28,23 +28,29 @@ class CSSectionLoader extends Component {
         loadData(this.props)
     }
 
+    componentWillReceiveProps(nextProps) {
+        // retrieve document if the section's name is different
+        if(nextProps.sectionName !== this.props.sectionName) {
+            loadData(nextProps)
+        }
+    }
+
     renderAvailableSection() {
         const {sid} = this.props
         return (
             <div>
-                {sid === '0201' ? <S0201 /> : null}
-                {sid === '0202' ? <S0202 /> : null}
-                {sid === '0203' ? <S0203 /> : null}
-                {sid === '0204' ? <S0204 /> : null}
-                {sid === '0205' ? <S0205 /> : null}
-                {sid === '0206' ? <S0206 /> : null}
-                {sid === '0207' ? <S0207 /> : null}
+                {sid === '0201' ? <S0201 {...this.props} /> : null}
+                {sid === '0202' ? <S0202 {...this.props} /> : null}
+                {sid === '0203' ? <S0203 {...this.props} /> : null}
+                {sid === '0204' ? <S0204 {...this.props} /> : null}
+                {sid === '0205' ? <S0205 {...this.props} /> : null}
+                {sid === '0206' ? <S0206 {...this.props} /> : null}
+                {sid === '0207' ? <S0207 {...this.props} /> : null}
             </div>
         )
     }
 
-    render() {
-        
+    render() {        
         return (
             <div>
                 <p>
@@ -57,14 +63,25 @@ class CSSectionLoader extends Component {
     }
 }
 
-const mapStateToProps = (state, ownProps) => ({
-    opptyId: ownProps.params.opptyId,
-    sid: ownProps.params.sid,
-    opptyName: ownProps.location.query.opptyName,
-    originalDocument: state.entities.doc
-})
+const mapStateToProps = (state, ownProps) => {
+    let sectionName = undefined
+    let sectionData = undefined
+
+    if(state.entities.doc.hasOwnProperty(ownProps.params.sid)) {
+        sectionName = state.entities.doc[ownProps.params.sid].name
+        sectionData = state.entities.doc[ownProps.params.sid].data
+    }
+
+    return {
+        opptyId: ownProps.params.opptyId,
+        sid: ownProps.params.sid,
+        opptyName: ownProps.location.query.opptyName,
+        sectionName: sectionName,
+        sectionData: sectionData,
+        originalDocument: state.entities.doc
+    }    
+}
 
 export default connect(mapStateToProps, {
-    loadDocument,
-    jumpTo
+    loadDocument
 })(CSSectionLoader)

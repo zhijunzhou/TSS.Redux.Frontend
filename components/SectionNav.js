@@ -9,7 +9,7 @@ class SectionNav extends Component {
 
         if(sidObj.prev !== sidObj.current) {
             browserHistory.push(`/loader/${opptyId}/${sidObj.prev}?opptyName=${opptyName}`)
-        }        
+        }
 
         e.preventDefault()
     }
@@ -25,8 +25,12 @@ class SectionNav extends Component {
         e.preventDefault()
     }
 
-    render() {
+    save = e => {
+        // todo: save logic
+        e.preventDefault()
+    }
 
+    render() {
         const {opptyId, opptyName, originalDocument, sid} = this.props
         var title = '...'
 
@@ -37,6 +41,8 @@ class SectionNav extends Component {
         return (
             <p>                
                 <button onClick={this.jumpPrev}>Previous</button>
+                {' '}
+                <button onClick={this.save}>Save</button>
                 {' '}
                 <button onClick={this.jumpNext}>Next</button>
                 {' '}

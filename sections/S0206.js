@@ -3,8 +3,14 @@ import React, { Component } from 'react'
 class S0206 extends Component {
 
     render() {
+        const {sectionData} = this.props
+
         return (
-            <div>0206</div>
+            <div>
+                <p>
+                    {JSON.stringify(sectionData)}
+                </p>
+            </div>
         )
     }
 }

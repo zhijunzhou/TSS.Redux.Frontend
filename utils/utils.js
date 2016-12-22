@@ -55,7 +55,7 @@ const parseSingleSection = (doc, section, sid, nextSid) => {
         doc[sid].editor = section.editor
         doc[sid].completed = section.completed 
                             ? section.completed 
-                            : (section.lastUpdated.slice(0, 4) > 1969 ? 1 : 0)
+                            : (section.lastUpdated.slice(0, 4) > '1969' ? 1 : 0)
         doc[sid].permissions = section.permissions 
                             ? section.permissions 
                             : { basic: "none" }
@@ -68,8 +68,7 @@ const parseSingleSection = (doc, section, sid, nextSid) => {
             }                         
             if(doc[nextSid].sid) {
                 doc[nextSid].sid.next = sid
-            }
-            
+            }            
             // set next and previous
             doc[sid].sid = {
                 prev: nextSid,

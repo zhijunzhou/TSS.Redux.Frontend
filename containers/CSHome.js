@@ -1,5 +1,5 @@
-import React, {Component, PropTypes} from 'react'
-import {connect} from 'react-redux'
+import React, { Component, PropTypes } from 'react'
+import { connect } from 'react-redux'
 import { Link } from 'react-router'
 
 class CSHome extends Component {
@@ -10,7 +10,7 @@ class CSHome extends Component {
     }
 
     renderSectionItem(opptyId, opptyName, sid, sectionName) {
-        return (<li><Link to={`/cs/${opptyId}/${sid}?opptyName=${opptyName}`}>{sectionName}</Link></li>)
+        return (<li><Link to={`/loader/${opptyId}/${sid}?opptyName=${opptyName}`}>{sectionName}</Link></li>)
     }
     
     render() {

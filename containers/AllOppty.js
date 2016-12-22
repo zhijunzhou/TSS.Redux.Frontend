@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
-import {connect} from 'react-redux'
-import {loadAll} from '../actions'
+import { connect } from 'react-redux'
+import { loadAll } from '../actions'
 import { Link } from 'react-router'
 
 const loadData = props => {

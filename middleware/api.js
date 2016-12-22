@@ -23,7 +23,6 @@ const getNextPageUrl = response => {
 }
 
 // const API_ROOT = 'https://api.github.com/'
-const API_ROOT = 'https://c4w19235.americas.hpqcorp.net/'
 
 // Fetches an API response and normalizes the result JSON according to schema.
 // This makes every API response have the same shape, regardless of how nested it was.
@@ -82,6 +81,10 @@ const opptySchema = new Schema('oppties', {
   idAttribute: oppty => oppty.opptyId.toUpperCase()
 })
 
+const docSchema = new Schema('docs', {
+  idAttribute: doc => doc.data.opptyId.toUpperCase()
+})
+
 repoSchema.define({
   owner: userSchema
 })
@@ -93,6 +96,7 @@ export const Schemas = {
   REPO: repoSchema,
   REPO_ARRAY: arrayOf(repoSchema),
   OPP: opptySchema,
+  DOC: docSchema,
   OPP_ARRAY: arrayOf(opptySchema),
   All_OPPTIES_ARRAY: arrayOf(opptySchema)
 }

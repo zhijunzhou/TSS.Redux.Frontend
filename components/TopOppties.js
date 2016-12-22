@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react'
+import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
 
 class TopOppties extends Component {

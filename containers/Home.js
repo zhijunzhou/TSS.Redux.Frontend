@@ -1,7 +1,7 @@
-import React, {Component, PropTypes} from 'react'
-import {connect} from 'react-redux'
+import React, { Component, PropTypes } from 'react'
+import { connect } from 'react-redux'
 import { Link } from 'react-router'
-import {resetErrorMessage, loadTop} from '../actions'
+import { resetErrorMessage, loadTop } from '../actions'
 import CommonNav from '../components/CommonNav'
 import TopOppties from '../components/TopOppties'
 

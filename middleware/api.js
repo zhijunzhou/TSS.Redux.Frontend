@@ -7,6 +7,8 @@ import {
   camelizeKeys
 } from 'humps'
 
+import '../config/environments'
+
 // Extracts the next page URL from Github API response.
 const getNextPageUrl = response => {
   const link = response.headers.get('link')
@@ -23,7 +25,7 @@ const getNextPageUrl = response => {
 }
 
 // const API_ROOT = 'https://api.github.com/'
-const API_ROOT = 'https://c4w19235.americas.hpqcorp.net/'
+const API_ROOT = window.sp.app.config.services.coreService
 
 // Fetches an API response and normalizes the result JSON according to schema.
 // This makes every API response have the same shape, regardless of how nested it was.

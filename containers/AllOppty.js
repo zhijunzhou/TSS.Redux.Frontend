@@ -19,7 +19,7 @@ class AllOppty extends Component {
 
     renderOppty(oppty) {
         return (
-            <tr>
+            <tr key={oppty.opptyId}>
                 <td>
                     {
                         oppty.isMine === true

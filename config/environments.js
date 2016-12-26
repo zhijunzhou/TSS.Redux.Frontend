@@ -1,4 +1,4 @@
-const sp = {
+var sp = {
     app: {
         filename: 'environment',
         version: '1.0',
@@ -12,7 +12,7 @@ const sp = {
                 site: /\/ESSolutionSource-QA($|\/)/i,
                 services: {
                     centerService: 'https://c9w21442.americas.hpqcorp.net',
-                    coreService: 'https://c4w19235.americas.hpqcorp.net',
+                    coreService: 'https://c4w19235.americas.hpqcorp.net/',
                     raService: null,
                     diService: 'https://c9w19662.americas.hpqcorp.net',
                     cmtService: 'https://c4w24116.americas.hpqcorp.net:30568'
@@ -22,7 +22,7 @@ const sp = {
                 site: /\/ESSolutionSource-Staging($|\/)/i,
                 services: {
                     centerService: 'https://c9w21442.americas.hpqcorp.net',
-                    coreService: 'https://c4w19235.americas.hpqcorp.net',
+                    coreService: 'https://c4w19235.americas.hpqcorp.net/',
                     raService: null,
                     diService: 'https://c9w19662.americas.hpqcorp.net',
                     cmtService: 'https://c4w24116.americas.hpqcorp.net:30568'
@@ -32,7 +32,7 @@ const sp = {
                 site: /\/ESSolutionSource($|\/)/i,
                 services: {
                     centerService: 'https://c9w21442.americas.hpqcorp.net',
-                    coreService: 'https://c4w19235.americas.hpqcorp.net',
+                    coreService: 'https://c4w19235.americas.hpqcorp.net/',
                     raService: null,
                     diService: 'https://c9w19662.americas.hpqcorp.net',
                     cmtService: 'https://c4w24116.americas.hpqcorp.net:30568'
@@ -45,20 +45,21 @@ const sp = {
 const uri = window.location.href
 
 const updateConfig = (env) => { 
-    window.sp = sp
-    console.log('inited')
+    const config = Object.assign({},sp.app.config)
+
+    delete sp.app.config
+    sp.app.config = Object.assign({}, config.dev, sp.app.base)
+    
+    return sp
 }
 
-const initConfig = () => {
-
+export const initConfig = () => {
     for (let env in sp.app.config) {
         if (sp.app.config[env].site.test(uri)) {
-            updateConfig(env)
-            break;
+            return updateConfig(env)
         }
     }
-
-    updateConfig(sp.app.config.dev)
+    return updateConfig(sp.app.config.dev)
 }
 
-initConfig()
+window.sp = initConfig()

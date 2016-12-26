@@ -24,7 +24,7 @@ class Home extends Component {
 
     renderOppty(oppty) {
         return (
-            <li>
+            <li key={oppty.opptyId}>
                 <Link to={`/cs/${oppty.opptyId}?opptyName=${oppty.opptyName}`}>{oppty.opptyId}{'/'}{oppty.opptyName}</Link>
             </li>
         )

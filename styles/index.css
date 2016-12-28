@@ -1,0 +1,83 @@
+@import 'constant.css';
+
+html {
+	height: 100%;
+	font-size: 14px;
+}
+
+body {
+	height: 100%;
+	width: 100%;
+	background: #f2f2f2;
+	color: #333;
+	font: 100%/1.5 "Helvetica Neue","Microsoft Yahei",sans-serif;
+}
+
+body {
+	margin: 0;
+	overflow: hidden;
+	/*margin-top: -21px;*/
+}
+
+ol, ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+[class*=" icon-"], [class^=icon-] {
+	vertical-align: middle;
+	line-height: 1;
+}
+[class*=" icon-"]:before, [class^=icon-]:before {
+    font-style: normal;
+    font-weight: 400;
+    speak: none;
+    display: inline-block;
+    font-variant: normal;
+    text-transform: none;
+    -webkit-font-smoothing: antialiased;
+}
+a {
+	background: 0 0;
+	text-decoration: none;
+	cursor: pointer;
+}
+a:focus, a:hover {
+    text-decoration: none;
+}
+
+/* bootstrap styles */
+.navbar-default {
+	border-radius: 0;
+}
+/* bootstrap styles */
+
+/* custom style s*/
+.portal-container {
+	margin-top: 200px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.portal-container>.nav-pills>li {
+	width: 12%;
+}
+
+.portal-container>.nav-pills>li>.dropdown-toggle {
+	height: 130px;    
+    background-color: #32B9B2;
+    border-bottom: 8px solid #2AD2C9;
+    border-top: 8px solid #2AD2C9;
+    color: #ffffff;
+    font-size: 20px;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.link-pills {
+	height: 200px;
+	width: 200px;
+}
+/* custom style s*/

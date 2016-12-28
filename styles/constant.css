@@ -1,0 +1,31 @@
+.green {
+    color: #00b388 !important;
+}
+
+.purple {
+    color: #8C6694 !important;
+}
+
+.red {
+    color: red !important;
+}
+
+.white {
+    color: white !important;
+}
+
+.pink {
+    color: #ff8d6d !important;
+}
+
+.bg-purple {
+    background-color: purple !important;
+}
+
+.bg-green {
+    background-color: #00b388 !important;
+}
+
+.bg-pink {
+    background-color: #ff8d6d !important;
+}

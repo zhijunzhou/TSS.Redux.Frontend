@@ -9,7 +9,9 @@ class CSHome extends Component {
         opptyName: PropTypes.string.isRequired
     }
 
-    renderSectionItem(opptyId, opptyName, sid, sectionName) {
+    renderSectionItem(sid, sectionName) {
+        const {opptyId, opptyName} = this.props
+        
         return (<li><Link to={`/loader/${opptyId}/${sid}?opptyName=${opptyName}`}>{sectionName}</Link></li>)
     }
     
@@ -22,11 +24,11 @@ class CSHome extends Component {
                     <b>{opptyId}{' | '}{opptyName}</b>
                 </p>
                 <ul>
-                    {this.renderSectionItem(opptyId, opptyName, '0201', 'Opportunity Description')}
-                    {this.renderSectionItem(opptyId, opptyName, '0202', 'Pursuit Team Contact')}
-                    {this.renderSectionItem(opptyId, opptyName, '0203', 'Key Dates')}
-                    {this.renderSectionItem(opptyId, opptyName, '0204', 'Client Pursuit Context')}
-                    {this.renderSectionItem(opptyId, opptyName, '0205', 'Scope')}
+                    {this.renderSectionItem('0201', 'Opportunity Description')}
+                    {this.renderSectionItem('0202', 'Pursuit Team Contact')}
+                    {this.renderSectionItem('0203', 'Key Dates')}
+                    {this.renderSectionItem('0204', 'Client Pursuit Context')}
+                    {this.renderSectionItem('0205', 'Scope')}
                 </ul>
             </div>
         )

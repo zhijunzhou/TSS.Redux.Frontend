@@ -4,6 +4,7 @@ import { Link } from 'react-router'
 import { resetErrorMessage, loadTop } from '../actions'
 import CommonNav from '../components/CommonNav'
 import TopOppties from '../components/TopOppties'
+import '../styles/index.css'
 
 const loadData = props => {
     props.loadTop()

@@ -16,7 +16,9 @@ body {
 body {
 	margin: 0;
 	overflow: hidden;
-	/*margin-top: -21px;*/
+	background: url('../images/bg_sd.jpg') no-repeat center center;
+	min-height: 768px;
+    background-size: cover;
 }
 
 ol, ul {
@@ -54,14 +56,26 @@ a:focus, a:hover {
 /* bootstrap styles */
 
 /* custom style s*/
-.portal-container {
+.portal-container, .sections-container {
 	margin-top: 200px;
 	margin-left: auto;
 	margin-right: auto;
 }
 
+.sections-container>p {
+	font-weight: bolder;
+	font-size: 24px;
+	text-align: center;
+	color:#2ad2c9;
+	text-shadow:10px 10px 20px #000;
+}
+
 .portal-container>.nav-pills>li {
 	width: 12%;
+}
+
+.sections-container>.nav-pills>li {
+	width: 16%;
 }
 
 .portal-container>.nav-pills>li>.dropdown-toggle {
@@ -74,6 +88,19 @@ a:focus, a:hover {
     display: table-cell;
     vertical-align: middle;
     text-align: center;
+}
+
+.sections-container>.nav-pills>li>.dropdown-toggle {
+	height: 130px;    
+    background-color: #32B9B2;
+    border-bottom: 8px solid #2AD2C9;
+    border-top: 8px solid #2AD2C9;
+    color: #ffffff;
+    font-size: 20px;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+	overflow: hidden;
 }
 
 .link-pills {

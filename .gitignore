@@ -47,3 +47,6 @@ Temporary Items
 .apdisk
 models/sample.js
 middleware/api.js
+styles/libs/bootstrap-theme.min.css
+styles/libs/bootstrap.min.css
+images/bg_sd.jpg

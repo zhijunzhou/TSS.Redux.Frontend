@@ -1,32 +1,28 @@
 import React, { Component, PropTypes } from 'react'
+import { Nav } from 'react-bootstrap'
 import BoxLink from './BoxLink'
-import { loadTop } from '../actions'
-import { Nav } from 'react-bootstrap';
-
-
 
 class TopOppties extends Component {
 
     static propTypes = {
         recents: PropTypes.object.isRequired
     }
-    
-    renderOppty(oppty) {
-        return (
-            <li key={oppty.opptyId}>
-                <Link to={`/cs/${oppty.opptyId}?opptyName=${oppty.opptyName}`}>{oppty.opptyId}{'/'}{oppty.opptyName}</Link>
-            </li>
-        )
-    }
 
     getMyOppty(recents) {
-        return Object.keys(recents).map(opptyId => {
-            return {
-                title: `${opptyId}/${recents[opptyId].opptyName}`,
-                url: `/cs/${opptyId}?opptyName=${recents[opptyId].opptyName}`,
-                isOuter: false
-            }
-        })
+        if(recents && recents.length > 0) {
+            return Object.keys(recents).map(opptyId => {    
+                return {
+                    title: `${opptyId}/${recents[opptyId].opptyName}`,
+                    url: `/cs/${opptyId}?opptyName=${recents[opptyId].opptyName}`,
+                    isOuter: false
+                }
+            })
+        }
+        return [{
+            title: `OPE-0006210043/DtO MAE`,
+            url: `/cs/OPE-0006210043?opptyName=DtO MAE`,
+            isOuter: false
+        }]      
     }
 
     render() {

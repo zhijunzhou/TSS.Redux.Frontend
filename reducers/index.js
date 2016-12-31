@@ -2,7 +2,7 @@ import { routerReducer as routing } from 'react-router-redux'
 import { combineReducers } from 'redux'
 import merge from 'lodash/merge'
 import * as ActionTypes from '../actions'
-import {resolveOppty} from '../utils/utils'
+import { resolveOppty } from '../utils/utils'
 
 const entities = (state = {
   oppties: {},

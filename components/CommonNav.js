@@ -29,8 +29,8 @@ class CommonNav extends Component {
                         </NavDropdown>
                         <NavDropdown eventKey={3} title="Opportunities" id="oppties">
                             <MenuItem eventKey={3.1}>New opportunity</MenuItem>
-                            <MenuItem eventKey={3.2}>My opportunities</MenuItem>
-                            <MenuItem eventKey={3.3}>All opportunities</MenuItem>
+                            <MenuItem eventKey={3.2} href={'/myOppty'}>My opportunities</MenuItem>
+                            <MenuItem eventKey={3.3} href={'/allOppty'}>All opportunities</MenuItem>
                         </NavDropdown>
                     </Nav>
                     <Nav pullRight>

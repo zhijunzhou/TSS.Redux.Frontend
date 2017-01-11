@@ -16,9 +16,20 @@ body {
 body {
 	margin: 0;
 	overflow: hidden;
-	background: url('../images/bg_sd.jpg') no-repeat center center;
 	min-height: 768px;
     background-size: cover;
+}
+
+[data-reactroot] {
+	height: 100%; 
+}
+
+#RTApp, .home {
+	height: 100%;
+}
+
+.home {
+	background: url('../images/bg_sd.jpg') no-repeat center center;
 }
 
 ol, ul {

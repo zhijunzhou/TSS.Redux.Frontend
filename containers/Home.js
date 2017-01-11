@@ -13,8 +13,10 @@ class Home extends Component {
    
     render() {
         const {children, pathname} = this.props
+        const dyStyleClass = pathname === "" || pathname.startsWith('cs/') ? 'home' : 'other'
+
         return (
-            <div>
+            <div className={dyStyleClass}>
                 <CommonNav value={pathname} />
                 {children}
             </div>

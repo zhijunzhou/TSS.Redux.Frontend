@@ -15,7 +15,7 @@ body {
 
 body {
 	margin: 0;
-	overflow: hidden;
+	/*overflow: hidden;*/
 	min-height: 768px;
     background-size: cover;
 }

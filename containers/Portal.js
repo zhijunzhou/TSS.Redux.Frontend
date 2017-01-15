@@ -10,11 +10,11 @@ const loadData = props => {
 }
 
 const getMyOppty = recents => {
-    if(recents && Object.keys(recents).length > 0) {
-        return Object.keys(recents).map(opptyId => {    
+    if(recents && recents.length > 0) {
+        return recents.map(oppty => {    
             return {
-                title: `${opptyId}/${recents[opptyId].opptyName}`,
-                url: `/cs/${opptyId}?opptyName=${recents[opptyId].opptyName}`,
+                title: `${oppty.opptyId}/${oppty.opptyName}`,
+                url: `/cs/${oppty.opptyId}?opptyName=${oppty.opptyName}`,
                 isOuter: false
             }
         })

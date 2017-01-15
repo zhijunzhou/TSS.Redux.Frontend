@@ -10,46 +10,16 @@ const loadData = props => {
 class AllOppty extends Component {
 
     static propTypes = {
-        allOppties: PropTypes.object.isRequired
+        allOppties: PropTypes.array.isRequired
     }
 
     componentWillMount() {
         loadData(this.props)
     }
 
-    renderOppty(oppty) {
-        var bidMgrOrPem = null
-        var lpa = []
-
-        if(oppty.contact && oppty.contact.content) {
-            var content = oppty.contact.content
-            var leadRegion = oppty.leadRegion
-
-            if (content.primary.bidMgr != null) {
-                bidMgrOrPem = content.primary.bidMgr;
-            } else if (content[leadRegion].bidMgr != null) {
-                bidMgrOrPem = content[leadRegion].bidMgr;
-            } else if (content.primary.pursuitEngagementMgr != null) {
-                bidMgrOrPem = content.primary.pursuitEngagementMgr;
-            } else if (content[leadRegion].pursuitEngagementMgr != null) {
-                bidMgrOrPem = content[leadRegion].pursuitEngagementMgr;
-            } else {
-                bidMgrOrPem = null;
-            }
-
-            // lpa (Solution Consultant / Lead Practice Architect (LPA))
-            if (content.primary.solnConsultant != null && content.primary.solnConsultant.length > 0) {
-                lpa = content.primary.solnConsultant;
-            } else if (content[leadRegion].solnConsultant != null && content[leadRegion].solnConsultant.length > 0) {
-                lpa = content[leadRegion].solnConsultant;
-            } else {
-                lpa = [];
-            }
-        }
-
-
+    renderOppty(oppty, idx) {
         return (
-            <tr key={oppty.opptyId}>
+            <tr key={oppty.opptyId + idx}>
                 <td className="text-nowrap">
                     {
                         oppty.isMine === true
@@ -60,13 +30,18 @@ class AllOppty extends Component {
                 <td>{oppty.opptyName}</td>
                 <td>{oppty.clientName}</td>
                 <td>
-                    {
-                        bidMgrOrPem ? <a href={'mailto:' + bidMgrOrPem.email}>{bidMgrOrPem.title}</a> : null
-                    }
+                    {oppty.bidManagerorPEM ? <a href={'mailto:' + oppty.bidManagerorPEM.email}>{oppty.bidManagerorPEM.title}</a> : null}                    
                 </td>
                 <td>
                     {
-                        lpa.map((role, index)=>(<div key={role.email + index}><a href={'mailto:' + role.email}>{role.title}</a></div>))
+                        oppty.solutionConsulantOrLPA
+                        ? oppty.solutionConsulantOrLPA.map((role, index)=>{
+                            if(role) {
+                                return <div key={oppty.opptyId + idx + index}><a href={'mailto:' + role.email}>{role.title}</a></div>
+                            }
+                            return null
+                        })                        
+                        : null
                     }
                 </td>
                 <td></td>
@@ -91,9 +66,12 @@ class AllOppty extends Component {
                     </thead>
                     <tbody>
                         {
-                            Object.keys(allOppties).map(opptyId => {
-                                return this.renderOppty(allOppties[opptyId])
+                            allOppties && allOppties.length > 0
+                            ?
+                            allOppties.map((oppty, idx) => {
+                                return this.renderOppty(oppty, idx)
                             })
+                            : <tr><td colSpan="6">loading...</td></tr>
                         }                        
                     </tbody>
                 </table>

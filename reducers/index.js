@@ -10,21 +10,21 @@ const entities = (state = {
   my: {},
   doc: {}
 }, action) => {
-  if (action.response && action.response.entities) {
+  if (action.response) {
     switch (action.type) {
       case ActionTypes.OPP_SUCCESS:
         let recents = {
-          recents: action.response.entities.oppties
+          recents: action.response
         }
         return merge({}, state, recents)
       case ActionTypes.ALL_OPP_SUCCESS:
         let oppties = {
-          oppties: action.response.entities.oppties
+          oppties: action.response
         }
         return merge({}, state, oppties)
       case ActionTypes.DOC_SUCCESS:
         let docs = {
-          doc: resolveOppty(action.response.entities.docs)
+          doc: resolveOppty(action.response)
         }
         return merge({}, state, docs)
       default:

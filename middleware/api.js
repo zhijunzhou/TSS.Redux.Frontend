@@ -1,28 +1,5 @@
-import {
-  Schema,
-  arrayOf,
-  normalize
-} from 'normalizr'
-import {
-  camelizeKeys
-} from 'humps'
-
+import { Schema, arrayOf } from 'normalizr'
 import '../config/environments'
-
-// Extracts the next page URL from Github API response.
-const getNextPageUrl = response => {
-  const link = response.headers.get('link')
-  if (!link) {
-    return null
-  }
-
-  const nextLink = link.split(',').find(s => s.indexOf('rel="next"') > -1)
-  if (!nextLink) {
-    return null
-  }
-
-  return nextLink.split(';')[0].slice(1, -1)
-}
 
 // const API_ROOT = 'https://api.github.com/'
 const API_ROOT = window.sp.app.config.services.coreService
@@ -47,14 +24,7 @@ const callApi = (endpoint, schema) => {
           return Promise.reject(json)
         }
 
-        const camelizedJson = camelizeKeys(json)
-        const nextPageUrl = getNextPageUrl(response)
-
-        return Object.assign({},
-          normalize(camelizedJson, schema), {
-            nextPageUrl
-          }
-        )
+        return json
       })
     )
 }
@@ -115,13 +85,8 @@ export default store => next => action => {
     return next(action)
   }
 
-  let {
-    endpoint
-  } = callAPI
-  const {
-    schema,
-    types
-  } = callAPI
+  let {endpoint} = callAPI
+  const {schema, types} = callAPI
 
   if (typeof endpoint === 'function') {
     endpoint = endpoint(store.getState())

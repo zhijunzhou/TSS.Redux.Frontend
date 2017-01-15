@@ -23,7 +23,7 @@ export const ALL_OPP_FAILURE = 'ALL_OPP_FAILURE'
 const fetchAllOppties = () => ({
   [CALL_API]: {
     types: [ ALL_OPP_REQUEST, ALL_OPP_SUCCESS, ALL_OPP_FAILURE ],
-    endpoint: `api/documents`,
+    endpoint: `api/documents/oppties`,
     schema: Schemas.All_OPPTIES_ARRAY
   }
 })

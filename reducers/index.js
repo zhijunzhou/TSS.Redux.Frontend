@@ -22,6 +22,11 @@ const entities = (state = {
           oppties: action.response
         }
         return merge({}, state, oppties)
+      case ActionTypes.MY_OPP_SUCCESS:
+        let my = {
+          my: action.response
+        }
+        return merge({}, state, my)
       case ActionTypes.DOC_SUCCESS:
         let docs = {
           doc: resolveOppty(action.response)

@@ -23,7 +23,10 @@ const callApi = (endpoint, schema) => {
         if (!response.ok) {
           return Promise.reject(json)
         }
-
+        if(endpoint === 'api/documents/oppties') {
+          const key = Math.floor(Date.now() / 100000).toString()
+          window.localStorage.setItem(key, JSON.stringify(json))
+        }
         return json
       })
     )
@@ -71,6 +74,7 @@ export const Schemas = {
   OPP: opptySchema,
   DOC: docSchema,
   OPP_ARRAY: arrayOf(opptySchema),
+  MY_OPPITIE_ARRAY: arrayOf(opptySchema),
   All_OPPTIES_ARRAY: arrayOf(opptySchema)
 }
 
@@ -112,9 +116,21 @@ export default store => next => action => {
   }
 
   const [requestType, successType, failureType] = types
+
   next(actionWith({
     type: requestType
   }))
+
+  const key = Math.floor(Date.now() / 100000).toString()
+  if(callAPI.endpoint === 'api/documents/oppties') {
+    var _cache = window.localStorage.getItem(key)
+    if(_cache) {
+      return next(actionWith({
+        response: JSON.parse(_cache),
+        type: successType
+      }))
+    }
+  }  
 
   return callApi(endpoint, schema).then(
     response => next(actionWith({

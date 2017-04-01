@@ -25,7 +25,9 @@ const callApi = (endpoint, schema) => {
         }
         if(endpoint === 'api/documents/oppties') {
           const key = Math.floor(Date.now() / 100000).toString()
-          window.localStorage.setItem(key, JSON.stringify(json))
+          if(!window.localStorage.getItem(key)) {
+            window.localStorage.setItem(key, JSON.stringify(json))
+          }
         }
         return json
       })

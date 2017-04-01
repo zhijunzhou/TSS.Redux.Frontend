@@ -10,7 +10,12 @@ const loadData = props => {
 class AllOppty extends Component {
 
     static propTypes = {
-        allOppties: PropTypes.array.isRequired
+        allOppties: PropTypes.array.isRequired,
+        filter: PropTypes.string
+    }
+
+    state = {
+        filter: this.props.filter || ''
     }
 
     componentWillMount() {
@@ -18,7 +23,8 @@ class AllOppty extends Component {
     }
 
     renderOppty(oppty, idx) {
-        return (
+        const filter = this.props.filter
+        const temp = (oppty, idx) => (
             <tr key={oppty.opptyId + idx}>
                 <td className="text-nowrap">
                     {
@@ -30,7 +36,7 @@ class AllOppty extends Component {
                 <td>{oppty.opptyName}</td>
                 <td>{oppty.clientName}</td>
                 <td>
-                    {oppty.bidManagerorPEM ? <a href={'mailto:' + oppty.bidManagerorPEM.email}>{oppty.bidManagerorPEM.title}</a> : null}                    
+                    {oppty.bidManagerOrPEM ? <a href={'mailto:' + oppty.bidManagerOrPEM.email}>{oppty.bidManagerOrPEM.title}</a> : null}                    
                 </td>
                 <td>
                     {
@@ -47,12 +53,41 @@ class AllOppty extends Component {
                 <td></td>
             </tr>
         )
+
+        if(filter) {
+            if(oppty.opptyId.indexOf(filter) !== -1
+                || oppty.opptyName.indexOf(filter) !== -1
+                || oppty.clientName.indexOf(filter) !== -1
+                || oppty.bidManagerOrPEM.title !== -1
+                || oppty.bidManagerOrPEM.email !== -1) {
+                    return temp(oppty, idx)
+            }
+            return null
+        }
+        return temp(oppty, idx)
+    }
+
+    handleChange = e => {
+        this.setState({ filter: e.target.value })
     }
 
     render() {
         const { allOppties } = this.props
         return (
-            <div>
+            <div className="col-xs-12">
+                <div className="col-xs-6 pull-left">{this.state.filter}</div>
+                <div className="col-xs-6 pull-right input-group">
+                    
+                    <input type="text" 
+                        className="form-control" 
+                        placeholder="Search..." 
+                        value={this.state.filter}
+                        onChange={this.handleChange}  />
+                        
+                    <div className="input-group-btn">
+                        <button className="btn btn-primary">Query</button>
+                    </div>
+                </div>
                 <table width="100%" className="table table-striped table-bordered">
                     <thead className="thead-inverse">
                         <tr>
